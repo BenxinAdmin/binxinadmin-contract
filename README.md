@@ -1,0 +1,1 @@
+# binxinadmin-contract
