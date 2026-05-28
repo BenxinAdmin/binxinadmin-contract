@@ -1,0 +1,131 @@
+# =========================================================
+#  BinxinAdmin · 本地开发 Docker 编排
+#  - PHP 8.3-fpm + MySQL 8.0 + Redis 7.4 + Nginx 1.27
+#  - 适用于 Apple Silicon (arm64) 与 amd64
+#  - 两个后端 (ThinkPHP / Laravel) 共用此环境
+#  端口避让宿主机已有 MySQL 9 / Redis 8
+# =========================================================
+
+name: ${COMPOSE_PROJECT_NAME:-binxin}
+
+services:
+  # ---------- PHP 8.3 FPM ----------
+  php:
+    build:
+      context: ./php
+      dockerfile: Dockerfile
+      args:
+        TZ: ${TZ:-Asia/Shanghai}
+    image: binxin/php:8.3-fpm
+    container_name: binxin_php
+    restart: unless-stopped
+    working_dir: /var/www
+    environment:
+      TZ: ${TZ:-Asia/Shanghai}
+      PHP_IDE_CONFIG: "serverName=binxin"
+    volumes:
+      - ${TP_PATH:-../../binxinadmin-backend-tp}:/var/www/tp:cached
+      - ${LARAVEL_PATH:-../../binxinadmin-backend-laravel}:/var/www/laravel:cached
+      - ./php/php.ini:/usr/local/etc/php/conf.d/zz-binxin.ini:ro
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - binxin_net
+
+  # ---------- Nginx 1.27 ----------
+  nginx:
+    image: nginx:1.27-alpine
+    container_name: binxin_nginx
+    restart: unless-stopped
+    ports:
+      - "${TP_PORT:-8080}:80"
+      - "${LARAVEL_PORT:-8081}:81"
+    environment:
+      TZ: ${TZ:-Asia/Shanghai}
+    volumes:
+      - ${TP_PATH:-../../binxinadmin-backend-tp}:/var/www/tp:cached
+      - ${LARAVEL_PATH:-../../binxinadmin-backend-laravel}:/var/www/laravel:cached
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/conf.d:/etc/nginx/conf.d:ro
+      - binxin_nginx_logs:/var/log/nginx
+    depends_on:
+      - php
+    networks:
+      - binxin_net
+
+  # ---------- MySQL 8.0 ----------
+  mysql:
+    image: mysql:8.0
+    container_name: binxin_mysql
+    restart: unless-stopped
+    command:
+      - --default-authentication-plugin=mysql_native_password
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+      - --explicit_defaults_for_timestamp=1
+    ports:
+      - "${MYSQL_PORT:-3307}:3306"
+    environment:
+      TZ: ${TZ:-Asia/Shanghai}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-binxinadmin}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      - binxin_mysql_data:/var/lib/mysql
+      - ./mysql/my.cnf:/etc/mysql/conf.d/binxin.cnf:ro
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uroot -p$$MYSQL_ROOT_PASSWORD --silent"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+    networks:
+      - binxin_net
+
+  # ---------- Redis 7.4 ----------
+  redis:
+    image: redis:7.4-alpine
+    container_name: binxin_redis
+    restart: unless-stopped
+    ports:
+      - "${REDIS_PORT:-6380}:6379"
+    environment:
+      TZ: ${TZ:-Asia/Shanghai}
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
+    volumes:
+      - binxin_redis_data:/data
+      - ./redis/redis.conf:/usr/local/etc/redis/redis.conf:ro
+    command:
+      - sh
+      - -c
+      - |
+        if [ -n "$$REDIS_PASSWORD" ]; then
+          exec redis-server /usr/local/etc/redis/redis.conf --requirepass "$$REDIS_PASSWORD"
+        else
+          exec redis-server /usr/local/etc/redis/redis.conf
+        fi
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli ${REDIS_PASSWORD:+-a $$REDIS_PASSWORD} --no-auth-warning ping | grep -q PONG"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    networks:
+      - binxin_net
+
+networks:
+  binxin_net:
+    name: binxin_net
+    driver: bridge
+
+volumes:
+  binxin_mysql_data:
+    name: binxin_mysql_data
+  binxin_redis_data:
+    name: binxin_redis_data
+  binxin_nginx_logs:
+    name: binxin_nginx_logs

@@ -29,6 +29,7 @@
 | D-021 | 会员资料模式后台可配置 | member_data_mode: shared共享/isolated独立，适应不同客户 | ADR-016 |
 | D-022 | 用 Docker 统一开发环境 | 本地PHP8.2/MySQL9/Redis8与项目要求(8.3/8.0/7)不符，Docker隔离保证环境一致 | - |
 | D-023 | Docker配置放契约仓库docker/目录 | 两个后端共用的基础设施，端口避让(MySQL3307/Redis6380) | - |
+| D-024 | 两后端共用一个数据库binxinadmin | TP负责建表+种子，Laravel直接连用不跑迁移(省时间/数据一致)；Laravel迁移文件保留作示范+单独部署备用 | ADR-017 |
 
 ---
 

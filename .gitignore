@@ -3,3 +3,7 @@
 node_modules/
 .idea/
 .vscode/
+
+# Docker 本地配置（含密码，绝不提交）
+docker/.env
+
