@@ -10,7 +10,7 @@
 ```
 项目：BinxinAdmin（本心通用后台管理系统）
 当前阶段：阶段 0 - 地基
-当前任务：Docker环境已搭好(6项验证通过)；数据库策略已定(共用一库,TP建表)；待Cursor执行#001建表
+当前任务：task-002 TP 后端骨架已完成并 commit，准备进入 task-002 Laravel 版 或 前端骨架
 已完成：
   - [x] 项目宪章与核心决策锁定
   - [x] 整体技术架构、模块拆解、5阶段里程碑、技术规范总纲
@@ -24,11 +24,14 @@
   - [x] 环境确认：本地PHP8.2/MySQL9/Redis8 与项目要求不符，决定用Docker隔离
   - [x] Docker环境搭建完成(PHP8.3+MySQL8.0+Redis7+Nginx，6项验证通过，端口避让3307/6380)
   - [x] 数据库策略定案：共用一个库binxinadmin，TP建表，Laravel连用不跑迁移(ADR-017)
+  - [x] task-001 完成：TP骨架+28张表+6个seeder+迁移#9 NOT NULL补丁，已commit双平台
+  - [x] task-002 完成 (TP版)：多应用骨架/OwnerScope/JWT三守卫/统一响应/AES加密/配置加载/限流CORS RequestId OperLog/迁移#10 OperLog补字段；12项链路回归全过；cross-token拒绝守卫实测通过
   - [x] 用户模型修订：身份/凭证/资料三层分离，按租户打通，会员模式可配置
   - [x] 版本规范：Node 24 LTS + pnpm
 仓库清单更新：管理前端拆为 admin-web(平台) + tenant-web(租户) + admin-shared(共享包)
-执行顺序：[完成]#003 Docker → [当前]#001 数据库(TP建表) → #002 后端骨架
-下一步：Cursor 执行 #001 在Docker环境里建29张表 → 然后 #002 后端骨架 / 前端骨架文档
+执行顺序：[完成]#003 Docker → [完成]#001 数据库 → [完成]#002 TP骨架 → [下一步]#002 Laravel骨架 OR 前端骨架
+下一步：A. task-002 Laravel版(趁热打铁) / B. 前端骨架(让前端能调通) / C. 直接进 M1
+Derek 待决策选哪个
 ```
 
 ---

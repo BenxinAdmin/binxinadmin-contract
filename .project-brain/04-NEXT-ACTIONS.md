@@ -14,11 +14,12 @@
 - [x] 本地目录创建 + Git 远程关联（Gitee + GitHub 双开）
 
 ### 进行中 / 待办
-- [ ] Cursor 执行 #001：两个后端生成数据库迁移 + 种子数据，跑通建表
-- [ ] Cursor 执行 #002：两个后端骨架（多应用结构、归属作用域、JWT三守卫、统一响应、加密服务、Docker环境）
-- [ ] 验证：三个 health 接口返回统一响应；守卫隔离生效；归属作用域生效
-- [ ] 前端骨架需求文档（admin-shared 共享包 + admin-web + tenant-web）← Claude 下一步产出
-- [ ] Docker 环境跑通（PHP8.3 + MySQL8.0 + Redis7 + Nginx）
+- [x] Cursor 执行 #001：TP 生成数据库迁移 + 种子数据（28张表 + 迁移#9 NOT NULL补丁）
+- [x] Cursor 执行 #002：TP 后端骨架（多应用 + OwnerScope + JWT三守卫 + 统一响应 + 加密 + 迁移#10 OperLog补字段）
+- [x] 验证：三个 health 接口 + cross-token 拒绝 + OperLog 新字段 全部通过
+- [x] Docker 环境跑通（PHP8.3 + MySQL8.0 + Redis7 + Nginx）
+- [ ] 三选一：task-002 Laravel版 / 前端骨架(admin-shared+admin-web+tenant-web) / M1 认证授权
+- [ ] superadmin 强随机密码已重置：UiCezkNAF5S!Xeap（Derek 已本地保存）
 
 ### 本地准备（Derek 待办）
 - [x] 创建 9 个仓库 + 关联远程
@@ -29,7 +30,7 @@
 ---
 
 ## 后续阶段预告
-- 阶段 1：M1 认证授权 + M2 用户管理 + 前端对应页面
+- 阶段 1：M1 认证授权（需求已预录 m1-requirements-preview.md：渐进式登录安全+验证码+Casbin）+ M2 用户管理 + 前端对应页面
 - 阶段 2：M3 系统管理 + M6 配置中心
 - 阶段 3：M4 代码生成器 ★核心
 - 阶段 4：M5 监控 + 插件机制 + P1 内容插件
