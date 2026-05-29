@@ -122,6 +122,12 @@
 - 约定式提交（Conventional Commits）：feat/fix/docs/refactor/test/chore
 - 分支：main（稳定）/ develop（开发）/ feature/*（功能）
 - 每次提交信息清晰，可追溯
+- **commit message 一律用中文描述**（前缀仍用英文 feat/fix/docs 等约定式关键字，冒号后的说明用中文）
+- 示例：
+  - ✅ `feat: 实现JWT三守卫与跨类型Token拒绝`
+  - ✅ `fix: 修复OperLog字段缺失导致的越权日志丢失`
+  - ✅ `docs: 新增前端差异化主题方案`
+  - ❌ `feat: implement JWT guards`（不要用英文描述）
 
 ---
 

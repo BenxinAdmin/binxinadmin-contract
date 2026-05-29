@@ -420,3 +420,5 @@ export interface MenuItem {
 
 请先告诉我执行计划（含每个核心模块的实现思路），确认后再开始。
 做完先不要 commit，提供完整改动清单 + playground 验证截图（或日志），等我 review。
+
+**提交规范提醒**：commit message 一律用中文（前缀保留 feat/fix/docs 等约定式英文关键字，冒号后用中文描述）。示例：`feat: 实现HTTP请求封装与Token自动刷新`。

@@ -16,6 +16,7 @@
 - 环境：PHP 8.3 / MySQL 8.0 / Redis 7
 - 管理后台前端：Vue 3.4+ + TS + Vite 5 + Element Plus 2.x + UnoCSS + Pinia，从零搭建
 - C 端：uni-app + Vue3 + TS + wot-design-uni（小程序+H5+App）
+- 本地路径：/Users/daxing/projects/BenxinAdmin/ （详见 dev-environment.md）
 - 官网：Nuxt 3
 - API：业务码风格 {code,message,data,timestamp,request_id}
 - 认证：JWT + Casbin RBAC
