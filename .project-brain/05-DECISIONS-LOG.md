@@ -37,6 +37,8 @@
 | D-029 | 本地项目根目录改为 /Users/daxing/projects/BenxinAdmin/ | 原 xinzhi 已弃用；详见 dev-environment.md | - |
 | D-030 | 严禁明文密码/密钥进入仓库 | 含 .project-brain；所有敏感凭据只存本地密码管理器；Claude产出文档前必须grep扫一遍 | - |
 | D-031 | 首次 superadmin 密码因文档误写已泄露需重置 | 2026-05旧密码已push至公开仓库04-NEXT-ACTIONS.md历史，已执行PlatformAdminSeed重置 | - |
+| D-032 | seeder幂等导致首次重置失败 | DELETE记录后再跑seeder才生效；M1将做--force参数和reset-password命令 | m1-requirements-preview |
+| D-033 | 凭据输出规范：写文件不打stdout | 从两次密码事故得出；密码/密钥/Token默认写本地gitignore文件，CLI仅提示路径 | m1-requirements-preview |
 
 ---
 

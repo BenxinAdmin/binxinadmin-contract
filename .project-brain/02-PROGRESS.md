@@ -10,7 +10,7 @@
 ```
 项目：BinxinAdmin（本心通用后台管理系统）
 当前阶段：阶段 0 - 地基
-当前任务：task-002 TP 后端骨架已完成并 commit，准备进入 task-002 Laravel 版 或 前端骨架
+当前任务：task-004 共享包已完成并 commit 双平台；task-005 admin-web 任务书已产出
 已完成：
   - [x] 项目宪章与核心决策锁定
   - [x] 整体技术架构、模块拆解、5阶段里程碑、技术规范总纲
@@ -26,12 +26,14 @@
   - [x] 数据库策略定案：共用一个库binxinadmin，TP建表，Laravel连用不跑迁移(ADR-017)
   - [x] task-001 完成：TP骨架+28张表+6个seeder+迁移#9 NOT NULL补丁，已commit双平台
   - [x] task-002 完成 (TP版)：多应用骨架/OwnerScope/JWT三守卫/统一响应/AES加密/配置加载/限流CORS RequestId OperLog/迁移#10 OperLog补字段；12项链路回归全过；cross-token拒绝守卫实测通过
+  - [x] 密码事故已处理：旧密码已轮换，新密码存本地密码管理器；规范D-030/031/032/033立起
+  - [x] task-004 完成：@bxa/admin-shared v0.1.0；83文件/10426行；含x-table核心+HTTP拦截器+主题系统+9业务组件+6布局组件+路由守卫工厂；type-check/lint/build 0错误；双平台已push
+  - [x] task-005 任务书已产出（admin-web 平台后台，深蓝主题）
   - [x] 用户模型修订：身份/凭证/资料三层分离，按租户打通，会员模式可配置
   - [x] 版本规范：Node 24 LTS + pnpm
 仓库清单更新：管理前端拆为 admin-web(平台) + tenant-web(租户) + admin-shared(共享包)
-执行顺序：[完成]#003 Docker → [完成]#001 数据库 → [完成]#002 TP骨架 → [下一步]#002 Laravel骨架 OR 前端骨架
-下一步：A. task-002 Laravel版(趁热打铁) / B. 前端骨架(让前端能调通) / C. 直接进 M1
-Derek 待决策选哪个
+执行顺序：[完成]#003 Docker → [完成]#001 DB → [完成]#002 TP骨架 → [完成]#004 共享包 → [当前]#005 admin-web
+下一步：Cursor执行#005 → 跑通后出#006 tenant-web → 然后选 task-002 Laravel版 或 M1认证授权
 ```
 
 ---

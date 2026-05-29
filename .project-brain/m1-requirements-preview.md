@@ -61,3 +61,27 @@
 
 ## 三、待 M1 启动时细化
 本文件是需求预录，正式做 M1 时会产出对应的 cursor 任务书并细化。
+
+---
+
+## 四、密码 / 凭据输出安全规范（从教训中得出）
+
+**背景**：项目初期 superadmin 密码两次出现在不该在的地方（一次被 commit 进公开仓库，一次被完整复制到 AI 对话）。任何明文出现在终端/文档/对话的密码都应视为已知泄露。
+
+### 立即可做（小改进，可在 task-004 后端补丁里做）
+1. PlatformAdminSeed 不再把密码打印到 stdout，改为写入项目根的 `.local-credentials.txt`（.gitignore 已配置）
+2. 输出引导文字："密码已写入 .local-credentials.txt，请立即查看并保存到密码管理器，然后 rm 此文件"
+3. seeder 提供 `--force` 参数，允许覆盖已有 superadmin（解决"幂等性导致无法重置"问题）
+
+### M1 时实现（管理命令）
+1. `php think admin:reset-password <username>` 重置任意管理员密码
+2. 同样写入本地文件，不打印到 stdout
+3. Laravel 版同步实现 `php artisan admin:reset-password`
+
+### 长期原则
+- 任何 CLI 命令产生敏感信息（密码、密钥、Token）必须默认写文件，不打印
+- 文件路径加入 .gitignore
+- 命令输出仅提示路径，不显示内容
+- 提供"读完即删"的引导
+
+> 这是从真实事故中得到的教训，必须落地。
