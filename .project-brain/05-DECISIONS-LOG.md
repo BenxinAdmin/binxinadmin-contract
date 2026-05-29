@@ -39,6 +39,13 @@
 | D-031 | 首次 superadmin 密码因文档误写已泄露需重置 | 2026-05旧密码已push至公开仓库04-NEXT-ACTIONS.md历史，已执行PlatformAdminSeed重置 | - |
 | D-032 | seeder幂等导致首次重置失败 | DELETE记录后再跑seeder才生效；M1将做--force参数和reset-password命令 | m1-requirements-preview |
 | D-033 | 凭据输出规范：写文件不打stdout | 从两次密码事故得出；密码/密钥/Token默认写本地gitignore文件，CLI仅提示路径 | m1-requirements-preview |
+| D-034 | 前端项目引用共享包用 link: 协议 | admin-web/tenant-web 在 package.json 用 "@bxa/admin-shared":"link:../binxinadmin-admin-shared" | - |
+| D-035 | GitHub 新建仓库永远不勾任何初始化选项 | 防止 push rejected；初始 README/LICENSE/.gitignore 由本地代码携带 | - |
+| D-036 | admin-shared v0.1.1 补 sidebar 变量 | task-005 实施时发现 v0.1.0 sidebar 变量遗漏，补 7 个变量+桥接 el-menu token；零破坏性升级 | - |
+| D-037 | 共享包变量契约原则 | 完整>稳定：发现合理遗漏的变量应立即补，而非用 :deep 在调用方私下解决 | - |
+| D-038 | task-005 admin-web 完成 | 41文件，13项验证全过，4架构亮点，懒注入打破循环依赖+动态路由首次访问装载+登录立即清密码+重置默认验证sidebar变量 | - |
+| D-039 | v0.2.0 候选优化项 | element-plus按需引入/iconify按需加载/路由级chunk分割，目标gzip 455KB→200KB | - |
+| D-040 | 共享包 v0.1.2 候选 | sidebar-logo slot + permissionCodes 递归收集；task-005 实施时记录的两个改进点 | - |
 
 ---
 

@@ -10,7 +10,7 @@
 ```
 项目：BinxinAdmin（本心通用后台管理系统）
 当前阶段：阶段 0 - 地基
-当前任务：task-004 共享包已完成并 commit 双平台；task-005 admin-web 任务书已产出
+当前任务：task-005 admin-web 平台后台正式收官（7项click-test全过），准备 task-006 tenant-web 任务书
 已完成：
   - [x] 项目宪章与核心决策锁定
   - [x] 整体技术架构、模块拆解、5阶段里程碑、技术规范总纲
