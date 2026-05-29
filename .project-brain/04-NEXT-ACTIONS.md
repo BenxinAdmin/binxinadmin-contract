@@ -19,7 +19,7 @@
 - [x] 验证：三个 health 接口 + cross-token 拒绝 + OperLog 新字段 全部通过
 - [x] Docker 环境跑通（PHP8.3 + MySQL8.0 + Redis7 + Nginx）
 - [ ] 三选一：task-002 Laravel版 / 前端骨架(admin-shared+admin-web+tenant-web) / M1 认证授权
-- [ ] superadmin 强随机密码已重置：UiCezkNAF5S!Xeap（Derek 已本地保存）
+- [ ] superadmin 密码已由 PlatformAdminSeed 随机生成并存入本地密码管理器（绝不入仓库）
 
 ### 本地准备（Derek 待办）
 - [x] 创建 9 个仓库 + 关联远程

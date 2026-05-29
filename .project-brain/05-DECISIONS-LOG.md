@@ -34,6 +34,9 @@
 | D-026 | task-002决策:不装Casbin/简单登录/NOT NULL补丁迁移/跑链路验证 | 本轮专注骨架+安全边界，业务细节留对应阶段 | - |
 | D-027 | 前端架构:本地file:依赖+轻度差异化+平板手机响应式+分3次任务书 | 共享包复用率最大化，差异只在主题色/Logo/登录页/favicon/顶栏角标 | - |
 | D-028 | git commit message 一律用中文 | 前缀保留约定式英文关键字(feat/fix/docs等)，冒号后说明用中文 | - |
+| D-029 | 本地项目根目录改为 /Users/daxing/projects/BenxinAdmin/ | 原 xinzhi 已弃用；详见 dev-environment.md | - |
+| D-030 | 严禁明文密码/密钥进入仓库 | 含 .project-brain；所有敏感凭据只存本地密码管理器；Claude产出文档前必须grep扫一遍 | - |
+| D-031 | 首次 superadmin 密码因文档误写已泄露需重置 | 2026-05旧密码已push至公开仓库04-NEXT-ACTIONS.md历史，已执行PlatformAdminSeed重置 | - |
 
 ---
 
