@@ -46,6 +46,18 @@
 | D-038 | task-005 admin-web 完成 | 41文件，13项验证全过，4架构亮点，懒注入打破循环依赖+动态路由首次访问装载+登录立即清密码+重置默认验证sidebar变量 | - |
 | D-039 | v0.2.0 候选优化项 | element-plus按需引入/iconify按需加载/路由级chunk分割，目标gzip 455KB→200KB | - |
 | D-040 | 共享包 v0.1.2 候选 | sidebar-logo slot + permissionCodes 递归收集；task-005 实施时记录的两个改进点 | - |
+| D-041 | pnpm link协议双实例问题处理 | admin-web/admin-shared 各装一份pinia/vue/element-plus导致 getActivePinia 返回null；vite.config.ts 加 resolve.dedupe 强制单实例 | - |
+| D-042 | 沉淀 Cursor 工作规范文档 | task-005 字典mock事件后 Cursor 反思的四步自检清单，写入 cursor-workflow.md 作为项目规范 | cursor-workflow.md |
+| D-043 | 修复时禁用"听起来合理的技术包装" | 必须先讲设计差距再讲技术手段；事后合理化解释是反模式 | cursor-workflow.md |
+| D-044 | 共享包 v0.1.2 修复守卫混用陷阱 | next参数与return混用导致Invalid navigation guard；改纯返回式(Vue Router 4推荐)；零破坏升级 | - |
+| D-045 | Vue Router 4 守卫签名规范 | 共享包/项目所有路由守卫一律不接 next 参数，用返回值控制流程(true放行/false取消/RouteLocationRaw重定向) | cursor-workflow.md |
+| D-046 | commit message 前缀必须匹配仓库状态 | 首次 commit 必须 feat:；不能在 No commits yet 时用 fix:；审 commit message 前必须看仓库状态 | cursor-workflow.md |
+| D-047 | 共享包 v0.1.3 候选(侧边栏装饰条变量) | --bxa-sidebar-accent-position/-width/-color 三件套；tenant-web 启动时补全，admin-web 零破坏 | - |
+| D-048 | 共享包 className 命中也属反模式 | :deep 和直接命中.bx-sidebar 是同类问题——硬编码共享包内部实现，违反 D-037 完整>稳定原则 | cursor-workflow.md |
+| D-049 | v0.1.3 装饰条 = 框架级思维样板 | 主动扩到四方向+MutationObserver反射data-attr+双默认值守护+Changelog写入反模式指正；体积+0.5KB | - |
+| D-050 | CSS变量驱动DOM选择器的标准模式 | 用MutationObserver监听根变量变化，反射到组件data-attr，让CSS变量间接驱动[data-x]选择器 | - |
+| D-051 | 第三次密码事故(tenant_admin) | Cursor 交付报告直接贴出密码明文；旧密码已轮换；规范扩展到聊天/报告 | - |
+| D-052 | 凭据规范的最终形态 | seeder/CLI 既不 stdout 打印也不交付报告贴出；只提示文件路径；密码用户自己 cat 一次抄到密码管理器；交付报告凭据描述格式标准化 | cursor-workflow.md |
 
 ---
 

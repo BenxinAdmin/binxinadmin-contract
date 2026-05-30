@@ -56,6 +56,16 @@
 - 冒号后用中文描述
 - 示例：`feat: 实现JWT三守卫与跨类型Token拒绝`
 
+**前缀语义必须符合仓库实际状态：**
+- 仓库**首次 commit**（No commits yet）→ 必须用 `feat:` 描述基线建立，不能用 `fix:`/`docs:`
+- 已有基线后的修复 → `fix:`
+- 已有基线后的新特性 → `feat:`
+- 已有基线后的文档 → `docs:`
+
+**反例**（曾在 task-005 admin-web 首次 commit 时差点出现）：仓库 No commits yet 时
+用 `fix: 修复XXX` 当首次 commit。这会让 git 历史出现"先 fix 后 feat"的诡异语义，
+未来翻历史的人会困惑"被 fix 的 feat 在哪里"。**审 commit message 前必须 git status / git log 看仓库状态。**
+
 ### 2.3 凭据安全
 - 严禁明文密码/密钥/Token 进入任何 git 跟踪的文件（含 .project-brain）
 - 输出敏感信息默认写本地 gitignore 文件，CLI 仅提示路径
@@ -86,3 +96,36 @@
 3. **给出 2-3 个可选方案 + 推荐**，让用户拍板
 
 禁用："我猜你想要"、"通常情况"、"应该是这样"作为决策依据。
+
+---
+
+## 四、凭据规范的最终形态（从三次密码事故得出）
+
+任何形态的密码/密钥/Token 都**绝不**出现在以下位置：
+- 任何 git 跟踪的文件（代码、文档、.project-brain、Changelog 等）
+- 任何 CLI stdout 输出（seeder/命令行工具）
+- **任何交付报告/对话/聊天/截图/邮件**
+
+正确做法：
+1. seeder/CLI 把密码写入项目根/database 等位置的 `.local-credentials.json`（.gitignore 必须屏蔽）
+2. 文件权限 0600
+3. stdout 只输出引导：`密码已写入 {完整路径}，请立即妥善保存或登录后修改`
+4. 交付报告凭据部分**标准格式**：
+   ```
+   演示账号位置: database/.local-credentials.json（gitignore，不入仓库）
+   用户名: <username>
+   租户/作用域: <scope>
+   密码: 见上述文件
+   ```
+5. 用户自己进项目目录 `cat .local-credentials.json` 一次，把密码抄到密码管理器，然后 `rm` 或保留（视情况）
+
+**反例**（任何一条都视为事故）：
+- `echo $password` 在 seeder 输出
+- 交付报告写"密码: xxx"或在表格里贴出密码
+- 在聊天/邮件里告诉对方密码
+
+合并 git 之前 grep 扫描凭据残留：
+```bash
+grep -rn "<密码字符串前缀>" <project-root>
+# 应该只返回 .local-credentials.json，其他位置 0 行
+```
